@@ -1,0 +1,69 @@
+.nav{
+    display: flex;
+    justify-content: space-between;
+    background-color: #2E0052;
+    align-items: center;
+    color: white;
+    height: 6vh;
+}
+
+.contactnumber{
+    margin-left:2% ;
+}
+
+.contactnumber span{
+    margin-right: 10%;
+}
+.login_signup {
+    margin-right: 2%;
+}
+.login_signup span{
+    color: white;
+    
+}
+.login_signup a{
+    text-decoration: none;
+    color: white;
+}
+
+.header{
+    display: flex;
+    flex-direction: column;
+}
+.company_logo img{
+    width: 3vw;
+}
+.company_header{
+    margin-left: 5%;
+    width: 100vw;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.Homebutton{
+    margin-left: 4%;
+   
+}
+.Homebutton a{
+    color: black;
+}
+.companyname h2{
+    padding-bottom: 4% ;
+}
+.banner{
+    display: flex;
+    justify-content: center;
+}
+.banner img{
+    width: 70vw;
+}
+.model{
+  position: absolute;
+  top: 10.5%;
+  right: 20%;
+  bottom: 0%;
+}
+.model img{
+    
+    width: 25vw;
+}

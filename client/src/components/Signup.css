@@ -1,0 +1,97 @@
+.signuppage{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+
+}
+.headercntainer{
+    height: 14.3vh;
+}
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logo img{
+    width: 3vw;
+}
+.websitename h2{
+    color:  #2E0052;
+    font-size: xx-large;
+}
+.bodycontainer{
+ 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 30vw;
+    height: 70vh;
+    border: 3px solid #D9D9D9;
+    border-radius: 20px;
+}
+.body div{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.bodyheader h2{
+    font-weight: 400;
+}
+.inputcontainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+.inputcontainer input{
+    width: 25vw;
+    height: 5vh;
+    border: 2px solid #B6B6B6;
+    border-radius: 9px;
+    font-size: large;
+}
+.agrement{
+    display: flex;
+  
+    font-weight: 700;
+    
+}
+
+.agrement p {
+    font-size: 13px;
+    text-align: left;
+}
+
+.termsand_condition{
+    font-size: small;
+}
+.continue_button button{
+    background-color: #2E0052;
+    color: white;
+    width: 25vw;
+}
+.signinroute a{
+    text-decoration: none;
+}
+.allrights_reserved{
+    background-color: #2E0052;
+    width: 100vw;
+    
+}
+.allrights_reserved p{
+    color: white;
+    text-align: center;
+}
