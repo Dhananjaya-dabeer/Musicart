@@ -1,4 +1,9 @@
-.nav{
+
+.Homepage_Common{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}.nav{
     display: flex;
     justify-content: space-between;
     background-color: #2E0052;
@@ -53,17 +58,88 @@
 .banner{
     display: flex;
     justify-content: center;
+    position: relative;
 }
 .banner img{
     width: 70vw;
 }
 .model{
-  position: absolute;
-  top: 10.5%;
-  right: 20%;
-  bottom: 0%;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    position: absolute;
+   min-width: 10vw;
+   max-width: 40vw;
+    top: 10.2%;
+    right: 25%;
+    transform: translateX(50%);
+    /* transform: translateY(50%); */
 }
 .model img{
-    
     width: 25vw;
+   /* display: block; */
+
+}
+.offertext{
+    display: flex;
+    flex-direction: column;
+    justify-content: first baseline;
+    position: absolute;
+    top: 16%;
+    right: 55%;
+    transform: translateX(50%);
+    width: 54vw;
+}
+.offertext h1{
+    font-size: 3vw;
+}
+.buynow button{
+    background-color: #2E0052;
+    color: white;
+    width: 13vw;
+}
+.searchbox{
+    display: flex;
+    justify-content: center ;
+    margin-top: 2vw;
+}
+.searchbox input{
+    width: 70vw;
+    height: 6vh;
+    border: 3px solid #C8C8C8;
+    border-radius: 48px;
+    font-size: large;
+}
+.viewicons{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.viewicons img{
+    width: 2vw;
+    cursor: pointer;
+}
+.listing_factors{
+    display: flex;
+    justify-content: center;
+}
+.listing_factor_inner_container{
+    width: 70vw;
+    margin-top: 2%;
+    display: flex;
+    justify-content: space-between;
+}
+.listing_factors select{
+  
+    height: 4vh;
+    border-radius: 34px;
+    background-color: #D9D9D9;
+    text-align: center;
+}
+.filter_factors{
+    display: flex;
+    
+}
+.filter_factors select{
+    font-weight: 700;
 }
