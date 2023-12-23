@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Homepage_common.css"
 import logo from "../assets/logo.png"
@@ -6,7 +6,24 @@ import banner from "../assets/add_card.png"
 import model from "../assets/add_model.png"
 import gridviewIcon from "../assets/material-symbols_grid-view-rounded.png"
 import listviewIcon from "../assets/material-symbols_view-list-rounded.png"
+import axios from "axios"
+
 function Homepage_common() {
+  const[viewType, setViewType] = useState({
+    gridView: true,
+    listView: false
+  })
+ const [response, setResponse] = useState([])
+  useEffect(() => {
+  (async() => {
+    const result = await axios.get("http://localhost:3000/api/v1/users/data")
+    try {
+      setResponse(result.data.data)
+    } catch (error) {
+      console.error(error)
+    }
+  })()
+  },[])
   return (
     <div className="Homepage_Common">
       <div className="nav">
@@ -23,7 +40,7 @@ function Homepage_common() {
           <Link to={"/signup"}>Signup</Link>
         </div>
       </div>
-      <div className="header">
+      <div className="header1">
         <div className="company_header">
           <div className="company_logo">
             <img src={logo} alt="" />
@@ -58,10 +75,10 @@ function Homepage_common() {
       <div className="listing_factors">
         <div className="listing_factor_inner_container">
         <div className="viewicons">
-          <div className="card_view">
+          <div className={viewType.gridView?"card_view background":"card_view"}>
             <img src={gridviewIcon} alt="" />
           </div>
-          <div className="layout_view">
+          <div className={viewType.listView?"layout_view background" : "layout_view"}>
             <img src={listviewIcon} alt="" />
           </div>
         </div>
@@ -113,7 +130,27 @@ function Homepage_common() {
         </div>
       </div>
 
-      <div className="middle_body"></div>
+      <div className="middle_body">
+        {viewType.gridView ? <div className="gridview">
+           <div className="cardcontainer">
+            <div className="card">
+              {response.map((item,index) => <div className="image_basicInfo" key={index}>
+                <div className="product_image">
+                  <img src={item.img} alt="" />
+
+                </div>
+                <div className="product_details">
+                  <p >{item.model}</p>
+                  <p>Price - ₹{item.price}</p>
+                  <p>Colour - {item.colour} | <span title={item.type}>{item.type}</span></p>
+                  </div>
+                  </div>)}
+            </div>
+           </div>
+        </div> : <div className="listview">
+
+        </div> }
+      </div>
       <div className="footer"></div>
     </div>
   );
