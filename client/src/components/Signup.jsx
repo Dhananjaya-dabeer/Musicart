@@ -1,8 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/logo.png";
 import "./Signup.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+
 function Signup() {
+  const [userDetails, setUserDetails] = useState({
+    name: "",
+    mobile: "",
+    email: "",
+    password: ""
+  })
+  
+  const navigate = useNavigate()
+
+  const signUpHandler = async(e) => {
+    e.preventDefault()
+   
+      if(!userDetails.name || !userDetails.mobile || !userDetails.email || !userDetails.password){
+       return alert("all fields are required")
+    }
+    const response = await axios.post(`http://localhost:3000/api/v1/users/register`,userDetails)
+    console.log(response.data)
+   
+    if(response.data.status == "Success"){
+      localStorage.setItem("name",JSON.stringify(response.data.userName))
+      localStorage.setItem("token",JSON.stringify(response.data.token))
+      navigate("/")
+    }
+    else {
+      alert(response.data.message)
+    }
+   
+    
+    
+      
+    
+  }
+
   return (
     <div className="signuppage">
       <div className="headercntainer">
@@ -21,22 +56,24 @@ function Signup() {
             <h2>Create Account</h2>
           </div>
           <div className="inputcontainer">
+            <form onSubmit={signUpHandler}>
             <div className="nameinput">
               <label htmlFor="name">Your name</label>
-              <input type="text" />
+              <input type="text" value={userDetails.name} onChange={(e) =>setUserDetails({...userDetails,name:e.target.value})} />
             </div>
             <div className="mobilenumber">
               <label htmlFor="mobile">Mobile number</label>
-              <input type="number" />
+              <input type="number" value={userDetails.mobile} onChange={(e) => setUserDetails({...userDetails, mobile:e.target.value})}/>
             </div>
             <div className="email">
               <label htmlFor="email">Email Id</label>
-              <input type="email" />
+              <input type="email" value={userDetails.email} onChange={(e) => setUserDetails({...userDetails, email:e.target.value})}/>
             </div>
             <div className="password">
               <label htmlFor="password">Password</label>
-              <input type="password" />
+              <input type="password" value={userDetails.password} onChange={(e) => setUserDetails({...userDetails, password: e.target.value})}/>
             </div>
+            
             <div className="agrement">
               <p>
                 By enrolling your mobile phone number,you consent  to receive <br/>
@@ -45,8 +82,9 @@ function Signup() {
               </p>
             </div>
             <div className="continue_button">
-                <button>Continue</button>
+                <button type="submit">Continue</button>
             </div>
+            </form>
             <div className="termsand_condition">
                 <p>By continuing, you agree to Musicart privacy notice and conditions  <br /> of use.</p>
             </div>
