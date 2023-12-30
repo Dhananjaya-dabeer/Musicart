@@ -1,6 +1,6 @@
 .advertise-banner {
     background: linear-gradient(90deg, #7286B4 0%, #E794CE 100%);
-    width: 85%;
+    width: 90vw;
     border-radius: 1rem;
     display: flex;
     justify-content: space-between;

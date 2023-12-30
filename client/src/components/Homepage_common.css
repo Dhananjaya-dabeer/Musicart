@@ -4,6 +4,9 @@
     flex-direction: column;
     justify-content: space-between;
     overflow-x: hidden;
+    width: 100vw;
+    height: 100vh;
+    max-height: fit-content;
 }.nav{
     display: flex;
     justify-content: space-between;
@@ -35,13 +38,36 @@
 .header1{
     display: flex;
     flex-direction: column;
+    align-items: center;
+    
 }
 .company_logo img{
     width: 3vw;
 }
 .company_header{
-    margin-left: 5%;
+    
     width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cartbuton{
+    margin-right: 6%;
+    button{
+        i{
+            font-size: 130%;
+            color: white;
+            
+           
+        }
+        ;
+       background-color: rgba(29, 112, 0, 1) ;
+       color: white;
+    }
+}
+.lefthomeheader{
+    width:50vw;
+    margin-left: 5%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -220,4 +246,9 @@ max-height: 25vh;
 .logout_btn a{
     text-decoration: none;
     color: white;
+}
+.footer{
+  display: flex;
+  justify-content: baseline;
+  align-items: center;
 }

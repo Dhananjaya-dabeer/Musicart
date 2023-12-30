@@ -3,6 +3,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import mongoose from "mongoose";
 import { Data } from "../models/data.models.js";
 import { User } from "../models/user.models.js";
+import { Cart } from "../models/cart.models.js";
 export const health = asyncHandler(async(req,res) => {
   
     res.json({
@@ -13,35 +14,44 @@ export const health = asyncHandler(async(req,res) => {
 })
 
 export const data = asyncHandler(async(req, res) => {
-    const result = await Data.find()
-
-    const { search, brand, colour, price, hedphoneType, sort } = req.query
-    const convertedPrice = price.split(",")
-    let sortedResult
-    if(sort == "Lowest")  sortedResult = result.sort((a, b) => a.price - b.price)
-    if(sort == "Highest") sortedResult = result.sort((a, b) => b.price - a.price)
-    if(sort == "A-Z") sortedResult = result.sort((a, b) => a.model.localeCompare(b.model));
-    if(sort == "Z-A") sortedResult = result.sort((a, b) => b.model.localeCompare(a.model));
- 
-
-   
-
+  const result = await Data.find()
+  const {productIds} = req.query
+  const { search, brand, colour, price, hedphoneType, sort } = req.query
+  if(!productIds){
+  const convertedPrice = price.split(",")
+  let sortedResult
+  if(sort == "Lowest") sortedResult = result.sort((a, b) => a.price - b.price)
+  if(sort == "Highest") sortedResult = result.sort((a, b) => b.price - a.price)
+  if(sort == "A-Z") sortedResult = result.sort((a, b) => a.model.localeCompare(b.model));
+  if(sort == "Z-A") sortedResult = result.sort((a, b) => b.model.localeCompare(a.model));
+  
+  
+  
+  
   const filteredResults = result.filter((item) => {
-    const isModelMatch = !search || item.model.trim().toLowerCase().includes(search.trim().toLowerCase());
-    const isBrandMatch = !brand || item.brand.trim().toLowerCase() === brand.trim().toLowerCase();
-    const isColourMatch = !colour || item.colour.trim().toLowerCase().includes(colour.trim().toLowerCase());
-    const isPriceMatch = !price || (item.price > parseInt(convertedPrice[0]) && item.price < parseInt(convertedPrice[1]))
-    const isHeadphoneMatch = !hedphoneType || item.type.trim().toLowerCase().includes(hedphoneType.trim().toLowerCase())
-    const isSortMatch = !sort || sortedResult
-    return isModelMatch && isBrandMatch && isColourMatch && isPriceMatch && isHeadphoneMatch && isSortMatch;
+  const isModelMatch = !search || item.model.trim().toLowerCase().includes(search.trim().toLowerCase());
+  const isBrandMatch = !brand || item.brand.trim().toLowerCase() === brand.trim().toLowerCase();
+  const isColourMatch = !colour || item.colour.trim().toLowerCase().includes(colour.trim().toLowerCase());
+  const isPriceMatch = !price || (item.price > parseInt(convertedPrice[0]) && item.price < parseInt(convertedPrice[1]))
+  const isHeadphoneMatch = !hedphoneType || item.type.trim().toLowerCase().includes(hedphoneType.trim().toLowerCase())
+  const isSortMatch = !sort || sortedResult
+  return isModelMatch && isBrandMatch && isColourMatch && isPriceMatch && isHeadphoneMatch && isSortMatch;
   });
   res.status(200).json({
-    status: "success",
-    data: result,
-    filteredResults: filteredResults
-  })
+  status: "success",
+  data: result,
+  filteredResults: filteredResults
+  })}
+  else if(productIds){
+  // console.log(productIds)
   
-})
+  const result2 = await Data.find({_id:{$in: productIds.split(",")}})
+  return res.json({
+    cartItems: result2
+  })
+  }
+  
+  })
 export const register = asyncHandler(async(req,res) => {
    const {name, mobile, email, password } = req.body
    const dupVerification = await User.findOne({email})
@@ -88,7 +98,8 @@ export const signin = asyncHandler(async(req, res) => {
         status:"success",
         message: "Loggedin successfully",
         token: token,
-        userName: existingUser.name
+        userName: existingUser.name,
+        userId: existingUser._id
     })
     }
     else{
@@ -97,4 +108,44 @@ export const signin = asyncHandler(async(req, res) => {
       })
     }
     
+})
+
+export const cart = asyncHandler(async(req,res) => {
+  const  {product_id, userId} = req.body
+
+  
+  if(product_id && userId) {
+    const targetUserCart = await Cart.findOne({userId}) ;
+
+  const query = {
+    userId
+  }
+  const update = {
+    $set : {
+      product_id : targetUserCart?.product_id.length ? [...targetUserCart.product_id, product_id] : [product_id] 
+    }
+  };
+
+  const options = {
+    upsert : true
+  }
+  
+  if(!targetUserCart?.product_id?.includes(product_id)) await Cart.updateOne(query, update, options)
+    if(targetUserCart?.product_id?.includes(product_id)) {
+    return   res.json({
+        status: "Failed" ,
+        message: "product is already added to cart. you can change quantity in cart"
+       })
+  }
+   
+      
+      
+    }
+    const getRequest = await Cart.find()
+  return  res.json({
+      status: "Success",
+      cartItems: getRequest,
+      
+    })
+  
 })

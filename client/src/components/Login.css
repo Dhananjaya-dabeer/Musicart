@@ -89,6 +89,8 @@
     justify-content: center;
     background-color: #2E0052;
     width: 100vw;
+    height: 5vh;
+    align-items: center;
    
 }
 .signuppagerouter button{

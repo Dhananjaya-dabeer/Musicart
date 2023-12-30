@@ -1,0 +1,190 @@
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../assets/logo.png";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "./Cart.css";
+import axios from "axios";
+function Cart() {
+  const navigate = useNavigate();
+  const [response, setResponse] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const response = await axios.get(
+        `http://localhost:3000/api/v1/users/cart`
+      );
+      try {
+        const userId = JSON.parse(localStorage.getItem("userId"));
+        const responseUserId = response.data.cartItems.filter(
+          (item) => item.userId === userId
+        );
+        console.log(responseUserId[0].product_id);
+
+        const displayResponse = await axios.get(
+          `http://localhost:3000/api/v1/users/data?productIds=${responseUserId[0].product_id}`
+        );
+        setResponse(displayResponse.data.cartItems);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+  const handleQuantityChange = (index, event) => {
+    const newResponse = [...response];
+    newResponse[index].selectedQuantity = parseInt(event.target.value, 10);
+
+    // Update the total based on the selected quantity
+    newResponse[index].total =
+      newResponse[index].price * newResponse[index].selectedQuantity;
+
+    setResponse(newResponse);
+  };
+  // console.log(response)
+
+  const totalMRP = response.map((item) =>
+    item.total ? item.total : item.price
+  );
+
+  return (
+    <div className="cartpage">
+      <div className="cartpage_container">
+        <div className="nav">
+          <div className="contactnumber">
+            <span>&#9990;</span>
+            <span>912121131313</span>
+          </div>
+          <div className="offerdisplay">
+            Get 50% off on selected items | Shop Now
+          </div>
+          <div className="logout_btn">
+            <Link
+              to={"/"}
+              onClick={() => {
+                localStorage.clear();
+              }}
+            >
+              Logout
+            </Link>
+          </div>
+        </div>
+        <div className="header1">
+        <div className="company_header">
+         <div className="lefthomeheader">
+         <div className="company_logo">
+            <img src={logo} alt="" />
+          </div>
+          <div className="companyname">
+            <h2>Musicart</h2>
+          </div>
+          <div className="Homebutton">
+            <Link to={"/"}>Home /</Link>
+          </div>
+          <div className="viewcart">
+          <Link to={"/cart"}>View Cart</Link>
+          </div>
+         </div>
+        </div>
+              
+      </div>
+        <div className="back_to_products_btn">
+          <button onClick={(e) => navigate("/")}>back to products</button>
+        </div>
+        <div className="mycart">
+          <h2>
+            {" "}
+            <i className="fas fa-shopping-bag"></i> My Cart{" "}
+          </h2>
+        </div>
+        <div className="cartitemContainer">
+          <div className="cartitems">
+            {response.map((item, index) => (
+              <div className="elements" key={index}>
+                <div className="elements_container">
+                  <div className="cartimgs">
+                    <img src={item.img} alt="" />
+                  </div>
+                  <div className="model_color">
+                    <h3>{item.model}</h3>
+                    <p>colour: {item.colour}</p>
+                    <p>{item.available}</p>
+                  </div>
+                  <div className="itemprice">
+                    <h3>Price</h3>
+                    <p>{item.price}</p>
+                  </div>
+                  <div className="quantity">
+                    <h3>Quantity</h3>
+                    <select
+                      name=""
+                      id=""
+                      onChange={(e) => handleQuantityChange(index, e)}
+                    >
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                    </select>
+                  </div>
+                  <div className="total">
+                    <h3>Total</h3>
+                    <p>{item.total ? item.total : item.price}</p>
+                  </div>
+                </div>
+
+                <div className="upperoutline"></div>
+              </div>
+            ))}
+          </div>
+          <div className="right_side_cart_comp">
+            <div className="productDetails">
+              <div className="product_details_header">
+                <h3>Product Details</h3>
+              </div>
+              <div className="totalMRP">
+                <h3>Total MRP</h3>
+                <p>
+                  {totalMRP.reduce(
+                    (accumulator, currentvalue) => accumulator + currentvalue,
+                    0
+                  )}
+                </p>
+              </div>
+              <div className="discountMRP">
+                <h3>Discout on MRP</h3>
+                <p>0</p>
+              </div>
+              <div className="convience_fee">
+                <h3>Convenience Fee</h3>
+                <p>45</p>
+              </div>
+            </div>
+            <div className="totalamount">
+              <div className="totalamountcontainer">
+                <h2>Total Amount</h2>
+                <p>
+                  {totalMRP.reduce(
+                    (accumulator, currentvalue) => accumulator + currentvalue,
+                    0
+                  ) + 45}
+                </p>
+              </div>
+            </div>
+            <div className="placerder">
+              <button>PLACE ORDER</button>
+            </div>
+          </div>
+        </div>
+        <div className="closure">
+          <p>Musicart | All rights reserved</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Cart;

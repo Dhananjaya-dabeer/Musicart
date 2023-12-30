@@ -51,4 +51,5 @@ const dataSchema = new mongoose.Schema({
     }
 })
 
+
 export const Data = mongoose.model("Data",dataSchema)

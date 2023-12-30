@@ -6,42 +6,42 @@ import axios from "axios";
 function Login() {
   const [usrDetails, setUserDetails] = useState({
     email_mobile: "",
-    password: ""
-  })
-  const navigate = useNavigate()
+    password: "",
+  });
+  const navigate = useNavigate();
 
   const siginHandler = async (e) => {
-    e.preventDefault()
-   const response = await axios.post("http://localhost:3000/api/v1/users/signin",usrDetails)
-   try {
-    if(response){
-      localStorage.setItem("name", JSON.stringify(response.data.userName))
-      localStorage.setItem("token", JSON.stringify(response.data.token))
-      alert(response.data.message)
-      
-      if(response.data.status == "success") {
-        navigate("/")
+    e.preventDefault();
+    const response = await axios.post(
+      "http://localhost:3000/api/v1/users/signin",
+      usrDetails
+    );
+    try {
+      if (response) {
+        localStorage.setItem("name", JSON.stringify(response.data.userName));
+        localStorage.setItem("token", JSON.stringify(response.data.token));
+        localStorage.setItem("userId", JSON.stringify(response.data.userId));
+        alert(response.data.message);
+
+        if (response.data.status == "success") {
+          navigate("/");
+        }
       }
-    }
-     
-   } catch (error) {
-    
-   }
-  }
+    } catch (error) {}
+  };
   return (
     <div className="loginpage">
-     
-        <div className="loginheadercontainer">
-          <div className="loginheader">
-            <div className="logo">
-              <img src={logo} alt="" />
-            </div>
-            <div className="header">
-              <h2>Musicart</h2>
-            </div>
+      <div className="loginheadercontainer">
+        <div className="loginheader">
+          <div className="logo">
+            <img src={logo} alt="" />
+          </div>
+          <div className="header">
+            <h2>Musicart</h2>
           </div>
         </div>
-        <form  onSubmit={siginHandler}>
+      </div>
+      <form onSubmit={siginHandler}>
         <div className="loginbodycontainer">
           <div className="logininputcontainer">
             <div className="logininputinnercontainer">
@@ -53,11 +53,29 @@ function Login() {
                   <label htmlFor="email_mobile">
                     Enter your email or mobile number
                   </label>
-                  <input type="text" id="email_mobile" onChange={(e) => setUserDetails({...usrDetails,email_mobile:e.target.value})} />
+                  <input
+                    type="text"
+                    id="email_mobile"
+                    onChange={(e) =>
+                      setUserDetails({
+                        ...usrDetails,
+                        email_mobile: e.target.value,
+                      })
+                    }
+                  />
                 </div>
                 <div className="loginpassword">
                   <label htmlFor="password">Password</label>
-                  <input type="text" id="password" onChange={(e) => setUserDetails({...usrDetails, password: e.target.value})} />
+                  <input
+                    type="text"
+                    id="password"
+                    onChange={(e) =>
+                      setUserDetails({
+                        ...usrDetails,
+                        password: e.target.value,
+                      })
+                    }
+                  />
                 </div>
               </div>
               <div className="logincontinue_btn">
@@ -83,9 +101,10 @@ function Login() {
             </Link>
           </div>
         </div>
-        </form>
-        <div className="closure"><p>Musicart | All rights reserved</p></div>
-      
+      </form>
+      <div className="closure">
+        <p>Musicart | All rights reserved</p>
+      </div>
     </div>
   );
 }

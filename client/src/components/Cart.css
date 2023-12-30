@@ -1,0 +1,97 @@
+.cartpage{
+    overflow: hidden;
+ width: 100vw;
+ height: 100vh;
+ display: flex;
+ justify-content: flex-start;
+ flex-direction: row;
+}
+.cartpage_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.mycart{
+    text-align: center
+}
+.upperoutline{
+    border: 2px solid rgba(225, 225, 225, 1);
+    width: 70vw;
+    margin-left: 2%;
+}
+.elements{
+/* margin-left: 2%;
+margin-top: 2%; */
+    img{
+        width: 10vw;
+        margin-left: 2%;
+        margin-top: 2%;
+    }
+}
+.elements_container{
+    display: flex;
+    justify-content: space-around;
+    width: 70vw;
+}
+.right_sideline{
+    border: 2px solid rgb(89, 84, 84);
+    rotate: 180deg;
+    /* margin-left: 1%; */
+    height: 60vh;
+
+}
+.cartitems{
+    height: 60vh;
+    width: 70vw;
+    overflow-y: scroll;
+}
+.cartitemContainer{
+    display: flex;
+    /* justify-content: space-evenly; */
+    flex-direction: row;
+}
+
+.totalMRP{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.discountMRP{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.convience_fee{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.product_details_header{
+    display: flex;
+    justify-content: center;
+}
+.productDetails{
+    width: 30vw;
+}
+.totalamountcontainer{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.right_side_cart_comp{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.placerder{
+    display: flex;
+    justify-content: center;
+    button{
+        background-color: 
+        rgba(255, 214, 0, 1);
+    }
+}
+.viewcart a{
+    text-decoration: none;
+    color: black;
+}

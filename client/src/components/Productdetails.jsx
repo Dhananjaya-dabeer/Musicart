@@ -3,16 +3,42 @@ import { useProductContext } from "./ProductContext/ProductContext";
 import logo from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import "./Productdetails.css";
+import axios from "axios";
 
 const Productdetails = () => {
   const { products, setProducts } = useProductContext();
   const [isUserVerified, setIsUserVerified] = useState();
   const [clickToReplaceImg,setClickToReplceImg] = useState(products.detailsMode.img)
+  
+ 
   const navigate = useNavigate();
 
   useEffect(() => {
     setIsUserVerified(JSON.parse(localStorage.getItem("name")));
   }, []);
+ 
+  const handleCart = async (products) => {
+    // ?product_id=${products.detailsMode._id}&userId=${JSON.parse(localStorage.getItem("userId"))}
+   const response =  await  axios.post(`http://localhost:3000/api/v1/users/cart`, {
+    product_id:products.detailsMode._id,
+    userId:JSON.parse(localStorage.getItem("userId"))
+   })
+   try {
+    
+      if(response.data.status == "Success"){
+        navigate("/cart")
+      }else{
+        alert(response.data.message)
+        navigate("/cart")
+      }
+   } catch (error) {
+    console.log(error)
+   }
+  }
+
+  
+  
+ 
   return (
     <div className="product_details_page">
       <div className="nav">
@@ -42,20 +68,24 @@ const Productdetails = () => {
       </div>
       <div className="header1">
         <div className="company_header">
-          <div className="company_logo">
+         <div className="lefthomeheader">
+         <div className="company_logo">
             <img src={logo} alt="" />
           </div>
           <div className="companyname">
             <h2>Musicart</h2>
           </div>
           <div className="Homebutton">
-            <Link to={"/"}>Home / </Link>{" "}
-            <span>
-              <Link>{products.detailsMode.model}</Link>
-            </span>
+            <Link to={"/"}>Home / </Link>
+            <span><Link>{products.detailsMode.model}</Link></span>
           </div>
+         </div>
+         {isUserVerified && <div className="cartbuton">
+          <button onClick={() => navigate("/cart")}> <i class='fas fa-shopping-cart'></i><span>View Cart</span></button>
+          </div>}
         </div>
-        <div className="cartimg"></div>
+        
+        
       </div>
       <div className="back_to_products_btn">
         <button onClick={(e) => navigate("/")}>back to products</button>
@@ -112,11 +142,12 @@ const Productdetails = () => {
           </div>
         </div>
         <div className="cart_buy_btns">
-            <div className="addtocart">
-              <button>Add to cart</button>
+            <div className= "addtocart" >
+              <button onClick={() => handleCart(products) }>Add to cart</button>
             </div>
+           
             <div className="buynow">
-              <button>Buy Now</button>
+              <button onClick={() => handleCart(pro)}>Buy Now</button>
             </div>
         </div>
         </div>

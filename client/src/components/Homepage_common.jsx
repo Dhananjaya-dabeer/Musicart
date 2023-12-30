@@ -35,6 +35,7 @@ function Homepage_common() {
       );
       // console.log(result.data)
       try {
+        
         setResponse(result.data.data);
         setQueryResponse(result.data.filteredResults);
       } catch (error) {
@@ -102,7 +103,8 @@ function Homepage_common() {
       </div>
       <div className="header1">
         <div className="company_header">
-          <div className="company_logo">
+         <div className="lefthomeheader">
+         <div className="company_logo">
             <img src={logo} alt="" />
           </div>
           <div className="companyname">
@@ -111,26 +113,13 @@ function Homepage_common() {
           <div className="Homebutton">
             <Link to={"/"}>Home</Link>
           </div>
+         </div>
+         {isUserVerified && <div className="cartbuton">
+          <button onClick={() => navigate("/cart")}> <i class='fas fa-shopping-cart'></i><span>View Cart</span></button>
+          </div>}
         </div>
         <AdvertiseBanner />
-        {/* <div className="advertismentbanner">
-          <div className="banner">
-            <img src={banner} alt="" />
-          </div>
-          <div className="offertext">
-            <h1>
-              Grab upto 50% off on <br />
-              Selected headphones
-            </h1>
-            <div className="buynow">
-              <button>Buy Now</button>
-            </div>
-          </div>
-
-          <div className="model">
-            <img src={model} alt="" />
-          </div>
-        </div> */}
+        
       </div>
       <div className="searchbox">
         <input
@@ -289,11 +278,11 @@ function Homepage_common() {
           </div>
         )}
       </div>
-      <div className="footer">
-      <div className="allrights_reserved">
+     
+      <div className="closure">
         <p>Musicart | All rights reserved</p>
       </div>
-      </div>
+      
     </div>
   );
 }
