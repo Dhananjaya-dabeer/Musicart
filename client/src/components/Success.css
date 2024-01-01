@@ -1,0 +1,41 @@
+.successpage{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+.success_div_container{
+    display: flex;
+    justify-content:center ;
+}
+
+.suuccess_div{
+    box-shadow: 14px 16px 23px 2px rgba(0, 0, 0, 0.11);
+    border: 3px solid rgba(227, 227, 227, 1);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 60vw;
+    height: 60vh;
+}
+.success_img_container{
+    display: flex;
+    justify-content: center;
+    img{
+        width: 16vw;
+    }
+   
+}
+.order_placed_text{
+    h2{
+        text-align: center;
+    }
+}
+.go_back_to_home_btn{
+    button{
+        background-color: rgba(46, 0, 82, 1);
+        color: white;
+    }
+}

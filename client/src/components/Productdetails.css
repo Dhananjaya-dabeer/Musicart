@@ -119,3 +119,10 @@
     font-size: 100%;
    }
 }
+.loginorsignup{
+    margin-top: 2%;
+    button{
+        background-color: rgb(117, 62, 159);
+        color: white;
+    }
+}

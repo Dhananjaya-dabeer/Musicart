@@ -8,6 +8,8 @@ import ProductContext, { useProductContext } from "./components/ProductContext/P
 import Homepage_common from "./components/Homepage_common";
 import Productdetails from "./components/Productdetails";
 import Cart from "./components/Cart";
+import Checkout from "./components/checkout";
+import SuccessPage from "./components/SuccessPage";
 
 function App() {
   const initialState = useProductContext()
@@ -21,6 +23,8 @@ function App() {
             <Route path="/" element={<Homepage_common />} />
             <Route path="/productdetails" element = {<Productdetails/>} />
             <Route path="/cart" element={<Cart/>}/>
+            <Route path="/checkout" element ={<Checkout/>}/>
+            <Route path="/success" element ={<SuccessPage/>}/>
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
           </Routes>

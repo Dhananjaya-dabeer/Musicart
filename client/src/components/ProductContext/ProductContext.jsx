@@ -2,7 +2,8 @@ import { createContext, useContext } from 'react';
 
 const ProductContext = createContext({
     detailsMode : {},
-    productsInCart : []
+    productsInCart : [],
+    cartAmount: 0
 });
 
 export const useProductContext = () => {

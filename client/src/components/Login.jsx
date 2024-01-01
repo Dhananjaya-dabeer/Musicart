@@ -40,6 +40,9 @@ function Login() {
             <h2>Musicart</h2>
           </div>
         </div>
+        <div className="welcome_text">
+          <p>Welcome</p>
+        </div>
       </div>
       <form onSubmit={siginHandler}>
         <div className="loginbodycontainer">
@@ -47,6 +50,7 @@ function Login() {
             <div className="logininputinnercontainer">
               <div className="loginbodyheader">
                 <h2>Sign in </h2>
+                <p className="responsive_already_customer">Already a customer?</p>
               </div>
               <div className="logininputs">
                 <div className="emailormobile">

@@ -14,8 +14,25 @@ const Productdetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setIsUserVerified(JSON.parse(localStorage.getItem("name")));
-  }, []);
+    ;(async() => {
+      const result = await axios.get("http://localhost:3000/api/v1/users/tokenverify",{
+        headers:{
+          Authorization: JSON.parse(localStorage.getItem("token"))
+        }
+      })
+      try {
+        if(result.data.status == "User verified" ) {
+       
+         setIsUserVerified(JSON.parse(localStorage.getItem("name")))
+        }
+       else{
+         
+       }
+      } catch (error) {
+        console.log(error)
+      }
+    })()
+    }, [])
  
   const handleCart = async (products) => {
     // ?product_id=${products.detailsMode._id}&userId=${JSON.parse(localStorage.getItem("userId"))}
@@ -141,22 +158,23 @@ const Productdetails = () => {
             <img src={products.detailsMode.img3} onClick={() => setClickToReplceImg(products.detailsMode.img3)} alt="" />
           </div>
         </div>
-        <div className="cart_buy_btns">
+        <div className={isUserVerified ? "cart_buy_btns" : "displaynone"}>
             <div className= "addtocart" >
               <button onClick={() => handleCart(products) }>Add to cart</button>
             </div>
            
             <div className="buynow">
-              <button onClick={() => handleCart(pro)}>Buy Now</button>
+              <button onClick={() => handleCart(products)}>Buy Now</button>
             </div>
+        </div>
+        <div className={isUserVerified ? "displaynone" : "loginorsignup"}>
+          <button onClick={(e) => navigate("/login")}>Login/Signup</button>
         </div>
         </div>
         
       </div>
-      <div className="foter">
-      <div className="allrights_reserved">
+      <div className="closure">
         <p>Musicart | All rights reserved</p>
-      </div>
       </div>
     </div>
   );

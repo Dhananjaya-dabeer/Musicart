@@ -76,7 +76,8 @@ function Homepage_common() {
       setProducts(
         {
           detailsMode : item,
-          cart : []
+          cart : [],
+          
         }
       )
   }

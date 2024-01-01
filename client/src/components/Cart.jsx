@@ -4,11 +4,23 @@ import logo from "../assets/logo.png";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./Cart.css";
 import axios from "axios";
+import { useProductContext } from "./ProductContext/ProductContext";
 function Cart() {
   const navigate = useNavigate();
   const [response, setResponse] = useState([]);
+  const { products, setProducts } = useProductContext();
+  const totalMRP = response.map((item) =>
+    item.total ? item.total : item.price
+  );
+
+
+  const clearCartHandler = () => {
+    axios.post(`http://localhost:3000/api/v1/users/deletecart`, {userId: JSON.parse(localStorage.getItem("userId"))})
+    setResponse([])
+  }
+
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       const response = await axios.get(
         `http://localhost:3000/api/v1/users/cart`
       );
@@ -23,11 +35,33 @@ function Cart() {
           `http://localhost:3000/api/v1/users/data?productIds=${responseUserId[0].product_id}`
         );
         setResponse(displayResponse.data.cartItems);
+        // if(products.cartAmount == 0 ){
+        //   setProducts({...products, cartAmount: totalMRP.reduce((acc,curr) => (acc + curr),0) + 45})
+        // }
       } catch (error) {
         console.log(error);
       }
     })();
+    ;(async() => {
+      const result = await axios.get("http://localhost:3000/api/v1/users/tokenverify",{
+        headers:{
+          Authorization: JSON.parse(localStorage.getItem("token"))
+        }
+      })
+      try {
+        if(result.data.status == "User verified" ) {
+       
+         setIsUserVerified(JSON.parse(localStorage.getItem("name")))
+        }
+       else{
+         navigate("/")
+       }
+      } catch (error) {
+        console.log(error)
+      }
+    })()
   }, []);
+
   const handleQuantityChange = (index, event) => {
     const newResponse = [...response];
     newResponse[index].selectedQuantity = parseInt(event.target.value, 10);
@@ -37,12 +71,33 @@ function Cart() {
       newResponse[index].price * newResponse[index].selectedQuantity;
 
     setResponse(newResponse);
-  };
-  // console.log(response)
 
-  const totalMRP = response.map((item) =>
-    item.total ? item.total : item.price
-  );
+    const newCartAmount =
+      newResponse.reduce(
+        (accumulator, currentItem) =>
+          accumulator +
+          (currentItem.total ? currentItem.total : currentItem.price),
+        0
+      ) + 45;
+    console.log("newResponse:", newResponse);
+    console.log("newCartAmount:", newCartAmount);
+    setProducts({ ...products, cartAmount: newCartAmount });
+  };
+
+  const placeOrderHandler = () => {
+    console.log(products);
+    setProducts({ ...products, productsInCart: [...response] });
+    if (products.productsInCart) {
+      navigate("/checkout");
+    }
+    
+    //  if(products.cartAmount == 0 ){
+    //         setProducts({...products, cartAmount: totalMRP.reduce((acc,curr) => (acc + curr),0) + 45});
+    //         navigate("/checkout")
+    //       }
+  };
+ 
+  
 
   return (
     <div className="cartpage">
@@ -67,24 +122,26 @@ function Cart() {
           </div>
         </div>
         <div className="header1">
-        <div className="company_header">
-         <div className="lefthomeheader">
-         <div className="company_logo">
-            <img src={logo} alt="" />
+          <div className="company_header">
+            <div className="lefthomeheader">
+              <div className="company_logo">
+                <img src={logo} alt="" />
+              </div>
+              <div className="companyname">
+                <h2>Musicart</h2>
+              </div>
+              <div className="Homebutton">
+                <Link to={"/"}>Home /</Link>
+              </div>
+              <div className="viewcart">
+                <Link to={"/cart"}>View Cart</Link>
+              </div>
+            </div>
+            <div className="clearcart">
+              <button onClick={clearCartHandler}>Clear cart</button>
+            </div>
           </div>
-          <div className="companyname">
-            <h2>Musicart</h2>
-          </div>
-          <div className="Homebutton">
-            <Link to={"/"}>Home /</Link>
-          </div>
-          <div className="viewcart">
-          <Link to={"/cart"}>View Cart</Link>
-          </div>
-         </div>
         </div>
-              
-      </div>
         <div className="back_to_products_btn">
           <button onClick={(e) => navigate("/")}>back to products</button>
         </div>
@@ -160,22 +217,22 @@ function Cart() {
               </div>
               <div className="convience_fee">
                 <h3>Convenience Fee</h3>
-                <p>45</p>
+                <p>{response.length && 45}</p>
               </div>
             </div>
             <div className="totalamount">
               <div className="totalamountcontainer">
                 <h2>Total Amount</h2>
-                <p>
-                  {totalMRP.reduce(
-                    (accumulator, currentvalue) => accumulator + currentvalue,
-                    0
-                  ) + 45}
-                </p>
+                <p>{
+                    totalMRP.reduce(
+                      (accumulator, currentvalue) => accumulator + currentvalue,
+                      0
+                    ) + response.length && 45
+                  }</p>
               </div>
             </div>
             <div className="placerder">
-              <button>PLACE ORDER</button>
+              <button onClick={placeOrderHandler}>PLACE ORDER</button>
             </div>
           </div>
         </div>
