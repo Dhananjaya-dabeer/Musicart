@@ -15,14 +15,14 @@ function Cart() {
 
 
   const clearCartHandler = () => {
-    axios.post(`http://localhost:3000/api/v1/users/deletecart`, {userId: JSON.parse(localStorage.getItem("userId"))})
+    axios.post(`https://musicart-hfqw.onrender.com/api/v1/users/deletecart`, {userId: JSON.parse(localStorage.getItem("userId"))})
     setResponse([])
   }
 
   useEffect(() => {
     ;(async () => {
       const response = await axios.get(
-        `http://localhost:3000/api/v1/users/cart`
+        `https://musicart-hfqw.onrender.com/api/v1/users/cart`
       );
       try {
         const userId = JSON.parse(localStorage.getItem("userId"));
@@ -32,7 +32,7 @@ function Cart() {
         console.log(responseUserId[0].product_id);
 
         const displayResponse = await axios.get(
-          `http://localhost:3000/api/v1/users/data?productIds=${responseUserId[0].product_id}`
+          `https://musicart-hfqw.onrender.com/api/v1/users/data?productIds=${responseUserId[0].product_id}`
         );
         setResponse(displayResponse.data.cartItems);
         // if(products.cartAmount == 0 ){

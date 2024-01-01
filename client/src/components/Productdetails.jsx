@@ -15,7 +15,7 @@ const Productdetails = () => {
 
   useEffect(() => {
     ;(async() => {
-      const result = await axios.get("http://localhost:3000/api/v1/users/tokenverify",{
+      const result = await axios.get("https://musicart-hfqw.onrender.com/api/v1/users/tokenverify",{
         headers:{
           Authorization: JSON.parse(localStorage.getItem("token"))
         }
@@ -36,7 +36,7 @@ const Productdetails = () => {
  
   const handleCart = async (products) => {
     // ?product_id=${products.detailsMode._id}&userId=${JSON.parse(localStorage.getItem("userId"))}
-   const response =  await  axios.post(`http://localhost:3000/api/v1/users/cart`, {
+   const response =  await  axios.post(`https://musicart-hfqw.onrender.com/api/v1/users/cart`, {
     product_id:products.detailsMode._id,
     userId:JSON.parse(localStorage.getItem("userId"))
    })

@@ -20,7 +20,7 @@ function Signup() {
       if(!userDetails.name || !userDetails.mobile || !userDetails.email || !userDetails.password){
        return alert("all fields are required")
     }
-    const response = await axios.post(`http://localhost:3000/api/v1/users/register`,userDetails)
+    const response = await axios.post(`https://musicart-hfqw.onrender.com/api/v1/users/register`,userDetails)
     console.log(response.data)
    
     if(response.data.status == "Success"){
@@ -50,10 +50,13 @@ function Signup() {
           </div>
         </div>
       </div>
+        <div className="welcome_text">
+          <p>Welcome</p>
+        </div>
       <div className="bodycontainer">
         <div className="body">
           <div className="bodyheader">
-            <h2>Create Account</h2>
+            <h2>Create Account <span>Don’t have an account?</span></h2> 
           </div>
           <div className="inputcontainer">
             <form onSubmit={signUpHandler}>
@@ -76,8 +79,8 @@ function Signup() {
             
             <div className="agrement">
               <p>
-                By enrolling your mobile phone number,you consent  to receive <br/>
-                automated security notifications via text  message from Musicart.  <br/>
+                By enrolling your mobile phone number,you consent  to receive
+                automated security notifications via text  message from Musicart. 
                 Message and data rates  may apply.
               </p>
             </div>
@@ -86,7 +89,7 @@ function Signup() {
             </div>
             </form>
             <div className="termsand_condition">
-                <p>By continuing, you agree to Musicart privacy notice and conditions  <br /> of use.</p>
+                <p>By continuing, you agree to Musicart privacy notice and conditions of use.</p>
             </div>
 
           </div>

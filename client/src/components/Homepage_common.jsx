@@ -31,7 +31,7 @@ function Homepage_common() {
   useEffect(() => {
     (async () => {
       const result = await axios.get(
-        `http://localhost:3000/api/v1/users/data?search=${search}&colour=${colourQuery}&price=${priceQuery}&hedphoneType=${headphoeType}&sort=${sort}`
+        `https://musicart-hfqw.onrender.com/api/v1/users/data?search=${search}&colour=${colourQuery}&price=${priceQuery}&hedphoneType=${headphoeType}&sort=${sort}`
       );
       // console.log(result.data)
       try {
@@ -46,7 +46,7 @@ function Homepage_common() {
 
   useEffect(() => {
   ;(async() => {
-    const result = await axios.get("http://localhost:3000/api/v1/users/tokenverify",{
+    const result = await axios.get("https://musicart-hfqw.onrender.com/api/v1/users/tokenverify",{
       headers:{
         Authorization: JSON.parse(localStorage.getItem("token"))
       }

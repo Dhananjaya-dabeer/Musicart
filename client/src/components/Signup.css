@@ -4,13 +4,13 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    align-items: center;
+    
     overflow: hidden;
 
 }
-.headercntainer{
+/* .headercntainer{
     height: 14.3vh;
-}
+} */
 .header{
     display: flex;
     justify-content: center;
@@ -48,10 +48,26 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    label{
+        font-weight: 700;
+    };
+    margin-left: 1vw;
 }
 .bodyheader h2{
     font-weight: 400;
+    
 }
+.bodyheader{
+    span{
+        display: none;
+    }
+}
+.signinroute{
+    display: flex;
+    justify-content: center;
+}
+
+
 .inputcontainer{
   display: flex;
   flex-direction: column;
@@ -67,7 +83,7 @@
 }
 .agrement{
     display: flex;
-  
+    margin-left: 6vw;
     font-weight: 700;
     
 }
@@ -75,6 +91,7 @@
 .agrement p {
     font-size: 13px;
     text-align: left;
+
 }
 
 .termsand_condition{
@@ -96,4 +113,62 @@
 .allrights_reserved p{
     color: white;
     text-align: center;
+}
+
+@media screen and (max-width:600px) {
+    
+    .headercntainer{
+        height: 8vh;
+        display: flex;
+        justify-content: flex-start;
+        width: 100vw;
+        img{
+            width: 10vw;
+        }
+        background-color: #2E0052;
+        h2{
+            color: white;
+            font-size: 150%;
+        }
+    }
+    .body  {
+        display: flex;
+        align-items: flex-start;
+        width: 85vw;
+        input{
+            width: 70vw;
+            margin-left: 6vw;
+        }
+        label{
+            margin-left: 6vw;
+            font-weight: 700;
+        }
+    }
+    .bodyheader h2{
+    font-weight: 700;
+    font-size: large;
+    margin-left: 7vw  ;
+}
+.bodyheader{
+    width: 85vw;
+    display: flex;
+    flex-direction: row;
+    span{
+        display: inline;
+        font-size: medium;
+        font-weight: 400;
+    }
+    
+}
+.agrement p{
+    margin-left: 6vw; 
+}
+.continue_button{
+    display: flex;
+    justify-content: center;
+    button{
+        margin-left: 28vw;
+        width: 25vw;
+}
+}
 }

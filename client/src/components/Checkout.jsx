@@ -23,7 +23,7 @@ function Checkout() {
     }
      useEffect(() => {
     ;(async() => {
-      const result = await axios.get("http://localhost:3000/api/v1/users/tokenverify",{
+      const result = await axios.get("https://musicart-hfqw.onrender.com/api/v1/users/tokenverify",{
         headers:{
           Authorization: JSON.parse(localStorage.getItem("token"))
         }
