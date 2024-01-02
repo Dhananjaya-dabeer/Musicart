@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from "../assets/logo.png"
 import "./Success.css"
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 function SuccessPage() {
+  const [isUserVerified, setIsUserVerified] = useState("")
     const navigate = useNavigate()
     useEffect(() => {
         ;(async() => {
@@ -57,6 +58,24 @@ function SuccessPage() {
         </div>
         <div className="closure">
         <p>Musicart | All rights reserved</p>
+      </div>
+      <div className="home_cart_logout">
+        
+        <div  className="displayoriginal" onClick={() => {navigate("/"); setHighlight_btn({...highlight_btn, home: true, cart: false})}}>
+        <i class="fas fa-home"></i>
+        <p>Home</p>
+        </div>
+        {isUserVerified && <div className= "displayoriginal"  onClick={() => {navigate("/cart");setHighlight_btn({...highlight_btn, cart: true, home: false})}}>
+        <i class='fas fa-cart-plus'></i>
+        <p>Cart</p>
+        </div>  }
+        {isUserVerified ? <div className="logout_res" onClick={() => {localStorage.clear();setIsUserVerified("")}}>
+        <i class="fa fa-sign-out"></i>
+        <p>Logout</p>
+        </div> : <div className="login_res" onClick={() => navigate("/login")}>
+          <i className="far fa-user-circle"></i>
+          <p>Login</p>
+          </div> }
       </div>
     </div>
   )

@@ -135,3 +135,47 @@ justify-content: space-evenly;
         color: rgba(121, 121, 121, 1);
     }
 }
+@media screen and (max-width: 600px) {
+    .middle_body_right_container{
+        display: none;
+    }
+    .middle_body_container {
+        margin: 0 2% 2% 0%;
+        display: flex;
+        justify-content: flex-start;
+    }
+    .delivery_details{
+        width: 100vw;
+        .delivery_address{
+            width: 50vw;
+        }
+    }
+    .payment_method_details{
+        width: 100vw;
+        .payment_method{
+            width: 50vw;
+        }
+    }
+    .review_items_delivery_details{
+        width: 100vw;
+        .review_items_delivery .review_items .review_img {
+            width: 50vw;
+            display: flex;
+            /* justify-content: flex-start; */
+            flex-direction: column;
+            img{
+                width: 40vw;
+            }
+        }
+    }
+    .bottom_orderamount_order_btn{
+        border: 2px solid rgba(225, 225, 225, 1);
+        width: 100vw;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-around;
+        align-items: center;
+        margin: 0 0 5% 0%;
+    }
+   
+}

@@ -116,7 +116,7 @@
 .responsive_already_customer{
     display: none;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1000px) {
     .loginheader{
     display: flex;
     justify-content: flex-start;
@@ -189,6 +189,6 @@
     }
 }
 .logintermsandcondition p{
-    margin-left: 5%;
+    margin-left: 5vw;
 }
 }

@@ -8,9 +8,7 @@
     overflow: hidden;
 
 }
-/* .headercntainer{
-    height: 14.3vh;
-} */
+
 .header{
     display: flex;
     justify-content: center;
@@ -105,19 +103,10 @@
 .signinroute a{
     text-decoration: none;
 }
-.allrights_reserved{
-    background-color: #2E0052;
-    width: 100vw;
-    
-}
-.allrights_reserved p{
-    color: white;
-    text-align: center;
-}
 
-@media screen and (max-width:600px) {
-    
-    .headercntainer{
+
+@media screen and (max-width:1000px) {
+     .headercntainer{
         height: 8vh;
         display: flex;
         justify-content: flex-start;

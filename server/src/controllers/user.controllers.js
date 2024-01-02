@@ -151,6 +151,9 @@ export const cart = asyncHandler(async (req, res) => {
 
 })
 
+
+
+
 export const deleteCart = asyncHandler(async(req, res) => {
   const { userId } = req.body
   console.log(userId)

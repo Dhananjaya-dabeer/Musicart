@@ -98,7 +98,7 @@ function Signup() {
       <div className="signinroute">
       <p>Already have an account? <Link to={"/login"}>Sign in</Link></p>
       </div>
-      <div className="allrights_reserved">
+      <div className="closure">
         <p>Musicart | All rights reserved</p>
       </div>
     </div>

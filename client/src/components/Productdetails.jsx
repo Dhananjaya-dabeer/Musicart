@@ -5,11 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Productdetails.css";
 import axios from "axios";
 
+
 const Productdetails = () => {
   const { products, setProducts } = useProductContext();
   const [isUserVerified, setIsUserVerified] = useState();
   const [clickToReplaceImg,setClickToReplceImg] = useState(products.detailsMode.img)
-  
+  const [selectedImg,setSelectedImg] = useState(products.detailsMode.img)
  
   const navigate = useNavigate();
 
@@ -107,6 +108,12 @@ const Productdetails = () => {
       <div className="back_to_products_btn">
         <button onClick={(e) => navigate("/")}>back to products</button>
       </div>
+      <div className="leftarrow">
+        <p onClick={() => navigate("/") } className="far fa-arrow-alt-circle-left"></p>
+      </div>
+      <div className="buynow_btn">
+            <button onClick={() => handleCart(products)}>Buy Now</button>
+      </div>
       <div className="product_details_container">
         <div className="prduct_title">
           <h3>{products.detailsMode.title}</h3>
@@ -114,6 +121,17 @@ const Productdetails = () => {
         <div className="product_middleComponent">
           <div className="product_img">
             <img src={clickToReplaceImg} onClick={() => setClickToReplceImg(products.detailsMode.img)} alt="" />
+          </div>
+          <div className="extra_img_rs">
+          <div className="img123">
+            <img src={products.detailsMode.img1} onClick={() => setClickToReplceImg(products.detailsMode.img1)} alt="" />
+          </div>
+          <div className="img123">
+            <img src={products.detailsMode.img2} onClick={() => setClickToReplceImg(products.detailsMode.img2)} alt="" />
+          </div>
+          <div className="img123">
+            <img src={products.detailsMode.img3} onClick={() => setClickToReplceImg(products.detailsMode.img3)} alt="" />
+          </div>
           </div>
          <div className="product_detail_right_comp">
           <div className="product_model">
@@ -125,6 +143,7 @@ const Productdetails = () => {
           <div className="price">
             <h3>Price - ₹{products.detailsMode.price}</h3>
           </div>
+          div.
           <div className="color_typeofearphone">
             <p>{products.detailsMode.colour} | {products.detailsMode.type}</p>
           </div>
@@ -146,6 +165,7 @@ const Productdetails = () => {
           </div>
          </div>
         </div>
+       
         <div className="lower_middle">
         <div className="extra_images">
           <div className="img123">
@@ -171,8 +191,12 @@ const Productdetails = () => {
           <button onClick={(e) => navigate("/login")}>Login/Signup</button>
         </div>
         </div>
-        
+       
       </div>
+      <div className="lower_btns_cart_buynow">
+          <button onClick={() => handleCart(products)}>Add to cart</button>
+          <button onClick={() => handleCart(products)}>Buy Now</button>
+        </div>
       <div className="closure">
         <p>Musicart | All rights reserved</p>
       </div>

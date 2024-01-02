@@ -14,6 +14,10 @@ import AdvertiseBanner from "./AdvertiseBanner";
 function Homepage_common() {
   const {setProducts} = useProductContext()
   const [search, setSearch] = useState("");
+  const [highlight_btn,setHighlight_btn] = useState({
+    home: true,
+    cart: false,
+  })
   const navigate = useNavigate()
   const [viewType, setViewType] = useState({
     gridView: true,
@@ -102,6 +106,14 @@ function Homepage_common() {
           <Link to={"/"} onClick={() => {localStorage.clear();setIsUserVerified("")}}>Logout</Link>
         </div>
       </div>
+      <div className="nav2">
+      <input
+          type="search"
+          placeholder="Search Musicart"
+          onChange={(e) => setSearch(e.target.value)}
+          value={search}
+        />
+      </div>
       <div className="header1">
         <div className="company_header">
          <div className="lefthomeheader">
@@ -183,11 +195,7 @@ function Homepage_common() {
                     {item}
                   </option>
                 ))}
-                {/* <option value="">Company</option>
-              <option value="JBL">JBL</option>
-              <option value="Sony">Sony</option>
-              <option value="Boat">Boat</option>
-              <option value="Zebronics">Zebronics</option> */}
+           
               </select>
             </div>
             <div className="colour">
@@ -202,10 +210,7 @@ function Homepage_common() {
                     {item}
                   </option>
                 ))}
-                {/* <option value="Blue">Blue</option>
-              <option value="Black">Black</option>
-              <option value="White">White</option>
-              <option value="Brown">Brown</option> */}
+                
               </select>
             </div>
             <div className="price">
@@ -282,6 +287,25 @@ function Homepage_common() {
      
       <div className="closure">
         <p>Musicart | All rights reserved</p>
+      </div>
+      
+      <div className="home_cart_logout">
+        
+        <div  className={highlight_btn.home ? "home_res highlight" : "displayoriginal"} onClick={() => {navigate("/"); setHighlight_btn({...highlight_btn, home: true, cart: false})}}>
+        <i class="fas fa-home"></i>
+        <p>Home</p>
+        </div>
+        {isUserVerified && <div className={highlight_btn.cart ? "cart_res highlight" : "displayoriginal"}  onClick={() => {navigate("/cart");setHighlight_btn({...highlight_btn, cart: true, home: false})}}>
+        <i class='fas fa-cart-plus'></i>
+        <p>Cart</p>
+        </div>  }
+        {isUserVerified ? <div className="logout_res" onClick={() => {localStorage.clear();setIsUserVerified("")}}>
+        <i class="fa fa-sign-out"></i>
+        <p>Logout</p>
+        </div> : <div className="login_res" onClick={() => navigate("/login")}>
+          <i className="far fa-user-circle"></i>
+          <p>Login</p>
+          </div> }
       </div>
       
     </div>

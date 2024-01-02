@@ -13,9 +13,14 @@ function Checkout() {
   const totalMRPArray = products.productsInCart.map((item) => item.total ? item.total : item.price) 
   const totalMRP = totalMRPArray.reduce((acc, curr) => (acc+curr), 0)
   const totalAmount = products.productsInCart.length && totalMRP +  45 //delivery fee
+  const clearCartHandler = () => {
+    axios.post(`https://musicart-hfqw.onrender.com/api/v1/users/deletecart`, {userId: JSON.parse(localStorage.getItem("userId"))})
+    setResponse([])
+  }
     const successHandler = () => {
         if(products.productsInCart.length){
             navigate("/success")
+            clearCartHandler()
         }else{
             alert("please add items to cart to place an order")
             navigate("/")
@@ -41,6 +46,7 @@ function Checkout() {
       }
     })()
     }, [])
+    
   return (
     <div className="checkoutpage">
       <div className="cartpagecontainer">
@@ -93,7 +99,11 @@ function Checkout() {
         <div className="back_to_products_btn">
           <button onClick={(e) => navigate("/")}>back to products</button>
         </div>
+        <div className="leftarrow">
+        <p onClick={() => navigate("/cart") } className="far fa-arrow-alt-circle-left"></p>
+      </div>
         <div className="mycart">
+        
           <h2>Checkout </h2>
         </div>
         <div className="middle_body_container">
@@ -179,11 +189,30 @@ function Checkout() {
                 </div>
             </div>
         </div>
+
         
       </div>
       <div className="closure">
           <p>Musicart | All rights reserved</p>
         </div>
+        <div className="home_cart_logout">
+        
+        <div  className= "displayoriginal" onClick={() => {navigate("/"); setHighlight_btn({...highlight_btn, home: true, cart: false})}}>
+        <i class="fas fa-home"></i>
+        <p>Home</p>
+        </div>
+        {isUserVerified && <div className="displayoriginal"  onClick={() => {navigate("/cart");setHighlight_btn({...highlight_btn, cart: true, home: false})}}>
+        <i class='fas fa-cart-plus'></i>
+        <p>Cart</p>
+        </div>  }
+        {isUserVerified ? <div className="logout_res" onClick={() => {localStorage.clear();setIsUserVerified("")}}>
+        <i class="fa fa-sign-out"></i>
+        <p>Logout</p>
+        </div> : <div className="login_res" onClick={() => navigate("/login")}>
+          <i className="far fa-user-circle"></i>
+          <p>Login</p>
+          </div> }
+      </div>
     </div>
   );
 }
