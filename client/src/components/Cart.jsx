@@ -9,23 +9,24 @@ function Cart() {
   const navigate = useNavigate();
   const [response, setResponse] = useState([]);
   const { products, setProducts } = useProductContext();
-  const [highlight_btn,setHighlight_btn] = useState({
+  const [highlight_btn, setHighlight_btn] = useState({
     home: false,
     cart: true,
-  })
+  });
   const totalMRP = response.map((item) =>
     item.total ? item.total : item.price
   );
-  const[isUserVerified,setIsUserVerified] = useState("")
-
+  const [isUserVerified, setIsUserVerified] = useState("");
 
   const clearCartHandler = () => {
-    axios.post(`https://musicart-hfqw.onrender.com/api/v1/users/deletecart`, {userId: JSON.parse(localStorage.getItem("userId"))})
-    setResponse([])
-  }
+    axios.post(`https://musicart-hfqw.onrender.com/api/v1/users/deletecart`, {
+      userId: JSON.parse(localStorage.getItem("userId")),
+    });
+    setResponse([]);
+  };
 
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       const response = await axios.get(
         `https://musicart-hfqw.onrender.com/api/v1/users/cart`
       );
@@ -47,24 +48,25 @@ function Cart() {
         console.log(error);
       }
     })();
-    ;(async() => {
-      const result = await axios.get("https://musicart-hfqw.onrender.com/api/v1/users/tokenverify",{
-        headers:{
-          Authorization: JSON.parse(localStorage.getItem("token"))
+    (async () => {
+      const result = await axios.get(
+        "https://musicart-hfqw.onrender.com/api/v1/users/tokenverify",
+        {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("token")),
+          },
         }
-      })
+      );
       try {
-        if(result.data.status == "User verified" ) {
-       
-         setIsUserVerified(JSON.parse(localStorage.getItem("name")))
+        if (result.data.status == "User verified") {
+          setIsUserVerified(JSON.parse(localStorage.getItem("name")));
+        } else {
+          navigate("/");
         }
-       else{
-         navigate("/")
-       }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    })()
+    })();
   }, []);
 
   const handleQuantityChange = (index, event) => {
@@ -95,14 +97,12 @@ function Cart() {
     if (products.productsInCart) {
       navigate("/checkout");
     }
-    
+
     //  if(products.cartAmount == 0 ){
     //         setProducts({...products, cartAmount: totalMRP.reduce((acc,curr) => (acc + curr),0) + 45});
     //         navigate("/checkout")
     //       }
   };
-  
-  
 
   return (
     <div className="cartpage">
@@ -150,10 +150,16 @@ function Cart() {
         <div className="back_to_products_btn">
           <button onClick={(e) => navigate("/")}>back to products</button>
         </div>
-        <div className="leftarrow">
+        <div className="leftarrow_container">
           <div className="leftarrow">
-        <p onClick={() => navigate("/") } className="far fa-arrow-alt-circle-left"></p>
-      </div>
+            <p
+              onClick={() => navigate("/")}
+              className="far fa-arrow-alt-circle-left"
+            ></p>
+          </div>
+          <div className="clearcart">
+            <button onClick={clearCartHandler}>Clear cart</button>
+          </div>
         </div>
         <div className="mycart">
           <h2>
@@ -208,7 +214,7 @@ function Cart() {
             ))}
           </div>
           <div className="cartitems_rs">
-          {response.map((item, index) => (
+            {response.map((item, index) => (
               <div className="elements" key={index}>
                 <div className="elements_container">
                   <div className="cartimgs">
@@ -217,34 +223,34 @@ function Cart() {
                   <div className="model_color">
                     <h3>{item.model}</h3>
                     <div className="itemprice">
-                    <h3>₹{item.price}</h3>
-                  </div>
+                      <h3>₹{item.price}</h3>
+                    </div>
                     <p>colour: {item.colour}</p>
                     <p>{item.available}</p>
                     <div className="quantity">
-                    <h3>Quantity</h3>
-                    <select
-                      name=""
-                      id=""
-                      onChange={(e) => handleQuantityChange(index, e)}
-                    >
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                      <option value="3">3</option>
-                      <option value="4">4</option>
-                      <option value="5">5</option>
-                      <option value="6">6</option>
-                      <option value="7">7</option>
-                      <option value="8">8</option>
-                      <option value="9">9</option>
-                      <option value="10">10</option>
-                    </select>
-                    <div className="total">
-                    <h2>Total: </h2>
-                    <h2> ₹{item.total ? item.total : item.price}</h2>
+                      <h3>Quantity</h3>
+                      <select
+                        name=""
+                        id=""
+                        onChange={(e) => handleQuantityChange(index, e)}
+                      >
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                      </select>
+                      <div className="total">
+                        <h2>Total: </h2>
+                        <h2> ₹{item.total ? item.total : item.price}</h2>
+                      </div>
+                    </div>
                   </div>
-                  </div>
-                  </div>               
                 </div>
 
                 <div className="upperoutline"></div>
@@ -252,38 +258,71 @@ function Cart() {
             ))}
           </div>
           <div className="totalamountcontainer2">
-                <h2>Total Amount</h2>
-                <h2>₹{
-                   response.length && totalMRP.reduce(
-                      (accumulator, currentvalue) => accumulator + currentvalue,
-                      0
-                    ) +  45
-                  }</h2>
-              </div>
-              <div className="convinece_fee_msg">
-                <h3>(including convience-fee ₹45)</h3>
-              </div>
-              <div className="placerder2">
-              <button onClick={placeOrderHandler}>PLACE ORDER</button>
+            <h2>Total Amount</h2>
+            <h2>
+              ₹
+              {response.length &&
+                totalMRP.reduce(
+                  (accumulator, currentvalue) => accumulator + currentvalue,
+                  0
+                ) + 45}
+            </h2>
+          </div>
+          <div className="convinece_fee_msg">
+            <h3>(including convience-fee ₹45)</h3>
+          </div>
+          <div className="placerder2">
+            <button onClick={placeOrderHandler}>PLACE ORDER</button>
+          </div>
+          <div className="home_cart_logout">
+            <div
+              className={
+                highlight_btn.home ? "home_res highlight" : "displayoriginal"
+              }
+              onClick={() => {
+                navigate("/");
+                setHighlight_btn({ ...highlight_btn, home: true, cart: false });
+              }}
+            >
+              <i class="fas fa-home"></i>
+              <p>Home</p>
             </div>
-            <div className="home_cart_logout">
-        
-        <div  className={highlight_btn.home ? "home_res highlight" : "displayoriginal"} onClick={() => {navigate("/"); setHighlight_btn({...highlight_btn, home: true, cart: false})}}>
-        <i class="fas fa-home"></i>
-        <p>Home</p>
-        </div>
-        {isUserVerified && <div className={highlight_btn.home ? "displayoriginal" : "cart_res highlight"  }  onClick={() => {navigate("/cart");setHighlight_btn({...highlight_btn, cart: true, home: false})}}>
-        <i class='fas fa-cart-plus'></i>
-        <p>Cart</p>
-        </div>  }
-        {isUserVerified ? <div className="logout_res" onClick={() => {localStorage.clear();setIsUserVerified("")}}>
-        <i class="fa fa-sign-out"></i>
-        <p>Logout</p>
-        </div> : <div className="login_res" onClick={() => navigate("/login")}>
-          <i className="far fa-user-circle"></i>
-          <p>Login</p>
-          </div> }
-      </div>
+            {isUserVerified && (
+              <div
+                className={
+                  highlight_btn.home ? "displayoriginal" : "cart_res highlight"
+                }
+                onClick={() => {
+                  navigate("/cart");
+                  setHighlight_btn({
+                    ...highlight_btn,
+                    cart: true,
+                    home: false,
+                  });
+                }}
+              >
+                <i class="fas fa-cart-plus"></i>
+                <p>Cart</p>
+              </div>
+            )}
+            {isUserVerified ? (
+              <div
+                className="logout_res"
+                onClick={() => {
+                  localStorage.clear();
+                  setIsUserVerified("");
+                }}
+              >
+                <i class="fa fa-sign-out"></i>
+                <p>Logout</p>
+              </div>
+            ) : (
+              <div className="login_res" onClick={() => navigate("/login")}>
+                <i className="far fa-user-circle"></i>
+                <p>Login</p>
+              </div>
+            )}
+          </div>
           <div className="right_side_cart_comp">
             <div className="productDetails">
               <div className="product_details_header">
@@ -310,12 +349,13 @@ function Cart() {
             <div className="totalamount">
               <div className="totalamountcontainer">
                 <h2>Total Amount</h2>
-                <p>{
-                   response.length && totalMRP.reduce(
+                <p>
+                  {response.length &&
+                    totalMRP.reduce(
                       (accumulator, currentvalue) => accumulator + currentvalue,
                       0
-                    ) +  45
-                  }</p>
+                    ) + 45}
+                </p>
               </div>
             </div>
             <div className="placerder">

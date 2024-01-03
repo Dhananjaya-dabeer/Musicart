@@ -112,7 +112,9 @@ const Productdetails = () => {
         <p onClick={() => navigate("/") } className="far fa-arrow-alt-circle-left"></p>
       </div>
       <div className="buynow_btn">
-            <button onClick={() => handleCart(products)}>Buy Now</button>
+           { isUserVerified ? <button onClick={() => handleCart(products)}>Buy Now</button> :  <div className={isUserVerified ? "displaynone" : "loginorsignup2"}>
+          <button onClick={(e) => navigate("/login")}>Login/Signup</button>
+        </div>}
       </div>
       <div className="product_details_container">
         <div className="prduct_title">
@@ -194,8 +196,13 @@ const Productdetails = () => {
        
       </div>
       <div className="lower_btns_cart_buynow">
-          <button onClick={() => handleCart(products)}>Add to cart</button>
+        <div className={isUserVerified ? "rs_buy_cart_btns_contaier" : "displaynone"}>
+        <button onClick={() => handleCart(products)}>Add to cart</button>
           <button onClick={() => handleCart(products)}>Buy Now</button>
+        </div>
+          <div className={isUserVerified ? "displaynone" : "loginorsignup2"}>
+          <button onClick={(e) => navigate("/login")}>Login/Signup</button>
+        </div>
         </div>
       <div className="closure">
         <p>Musicart | All rights reserved</p>

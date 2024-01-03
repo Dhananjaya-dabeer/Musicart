@@ -139,6 +139,7 @@
     display: none;
 }
 @media screen and (max-width: 600px) {
+   
     .back_to_products_btn{
         display: none;  
     }
@@ -190,7 +191,7 @@
         display: none;
     }
     .lower_btns_cart_buynow{
-        height: 10vh;
+        height: 15vh;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -198,7 +199,19 @@
         background-color: rgba(255, 214, 0, 1);
         }
     }
-  
+    .rs_buy_cart_btns_contaier{
+        height: 15vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+    .loginorsignup2{
+        display: flex;
+        justify-content: center;
+        button{
+            background-color: rgb(117, 62, 159) ;
+        }
+    }
 }
 
 @media screen and (min-width: 601px) and (max-width: 1000px){

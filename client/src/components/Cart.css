@@ -1,5 +1,5 @@
 .cartpage{
-    overflow: hidden;
+    overflow-y: auto;
  width: 100vw;
  height: 100vh;
  display: flex;
@@ -114,6 +114,9 @@ margin-top: 2%; */
 .placerder2{
     display: none;
 }
+.leftarrow_container{
+    display: none;
+}
 @media screen and (max-width: 600px) {
     .cartpage{
         display: flex;
@@ -189,4 +192,92 @@ margin-top: 2%; */
             margin:0
         }
     }
+    .leftarrow_container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 1000px){
+    .cartpage{
+        display: flex;
+        flex-direction: column;
+    }
+    .right_side_cart_comp{
+        display: none;
+    }
+    .mycart{
+        display: flex;
+        justify-content: center;
+    }
+    .cartitemContainer{
+        display: block;
+    }
+    .cartitems{
+    
+        display: none;
+    }
+    .elements_container{
+        display: flex;
+        /* justify-content: space-evenly; */
+        width: 100vw;
+        img{
+            width: 30vw;
+            height: 22vh;
+        }
+    }
+    .upperoutline{
+        width: 100vw;
+    }
+    .cartitems_rs{
+        display: flex;
+        flex-direction: column;
+        height: 60vh;
+        overflow-y: auto;
+    }
+    .quantity{
+        display: flex;
+        /* align-items: center; */
+        flex-direction: column;
+    }
+    .total{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+ 
+    .convinece_fee_msg{
+        display: flex;
+        justify-content: flex-end;
+       h3{
+        margin: 0;
+       }
+    }
+    .cartimgs{
+        display: flex;
+        align-items: center;
+    }.placerder2{
+        display: flex;
+        justify-content: center;
+        margin-top: 5%;
+        margin-bottom: 6%;
+        button{
+            width: 50vw;
+            background-color: rgba(255, 214, 0, 1);
+        }
+    }
+    .totalamountcontainer2{
+        display: flex;
+        justify-content: space-around;
+        h2{
+            margin:0
+        }
+    }
+    .leftarrow_container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
 }
