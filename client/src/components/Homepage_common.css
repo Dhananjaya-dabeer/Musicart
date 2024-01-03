@@ -258,6 +258,12 @@ max-height: 25vh;
 .home_cart_logout{
     display: none;
 }
+.Loading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
 @media screen and (max-width:600px) {
     .Homepage_Common{
@@ -449,6 +455,7 @@ max-height: 25vh;
         color: white;
     }
 }
+
 }
 @media screen and (min-width: 601px) and (max-width: 1000px) {
     .nav{

@@ -235,7 +235,7 @@ function Homepage_common() {
         </div>
       </div>
 
-      <div className="middle_body">
+     { queryResponse.length ? <div className="middle_body">
         {viewType.gridView ? (
           <div className="gridview">
             <div className="cardcontainer">
@@ -283,7 +283,7 @@ function Homepage_common() {
             </div>
           </div>
         )}
-      </div>
+      </div> : <div className="Loading"><h1>Loading....</h1></div> }
      
       <div className="closure">
         <p>Musicart | All rights reserved</p>

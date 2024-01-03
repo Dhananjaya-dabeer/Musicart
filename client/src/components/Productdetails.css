@@ -126,6 +126,7 @@
         color: white;
     }
 }
+
 .leftarrow{
     display: none;
 }
@@ -139,7 +140,7 @@
     display: none;
 }
 @media screen and (max-width: 600px) {
-   
+  
     .back_to_products_btn{
         display: none;  
     }
@@ -194,6 +195,7 @@
         height: 15vh;
         display: flex;
         flex-direction: column;
+        
         justify-content: space-between;
         button{
         background-color: rgba(255, 214, 0, 1);
@@ -231,7 +233,7 @@
         margin-bottom: 2%;
         button{
             width: 70vw;
-            background-color: rgba(255, 184, 0, 1);
+            background-color: rgb(117, 62, 159) ;
         }
     }
     .prduct_title{
@@ -270,9 +272,14 @@
         height: 10vh;
         display: flex;
         flex-direction: column;
+        align-items: center;
         justify-content: space-between;
         button{
-        background-color: rgba(255, 214, 0, 1);
+        background-color: rgb(117, 62, 159) ;
         }
     }
+    .loginorsignup2 {
+    display: flex;
+    justify-content: center;
+}
 }

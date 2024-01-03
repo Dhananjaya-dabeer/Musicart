@@ -145,7 +145,7 @@ const Productdetails = () => {
           <div className="price">
             <h3>Price - ₹{products.detailsMode.price}</h3>
           </div>
-          div.
+          
           <div className="color_typeofearphone">
             <p>{products.detailsMode.colour} | {products.detailsMode.type}</p>
           </div>
